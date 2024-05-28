@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pGO-pH-XZQ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -198,7 +198,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="map" catalog="system" id="C6G-na-nWA">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="mHf-hz-AFv" kind="show" id="h7m-wS-PCB"/>
+                                <segue destination="mHf-hz-AFv" kind="show" identifier="showMap" id="h7m-wS-PCB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -213,7 +213,7 @@
         <!--Nob Ecz MapsVC-->
         <scene sceneID="dFU-oZ-L7y">
             <objects>
-                <viewController id="mHf-hz-AFv" customClass="NobEczMapsVC" customModule="NobetciEczaneApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mHf-hz-AFv" customClass="NobEczMapsVC" customModule="NobetciEczaneApp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jHa-x8-nzZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -232,7 +232,22 @@
                             <constraint firstItem="MWf-yc-3uS" firstAttribute="trailing" secondItem="Uel-0Z-mAD" secondAttribute="trailing" id="9N7-SA-BzI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="T1n-4u-fjq"/>
+                    <navigationItem key="navigationItem" id="T1n-4u-fjq">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="HUy-yf-7RK">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="23r-8A-OXy">
+                                <rect key="frame" x="290" y="5" width="87" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                            <connections>
+                                <action selector="getDirections:" destination="mHf-hz-AFv" id="2W5-6v-KDH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="MWf-yc-3uS" id="HQB-a9-PBd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LnW-3X-T1p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

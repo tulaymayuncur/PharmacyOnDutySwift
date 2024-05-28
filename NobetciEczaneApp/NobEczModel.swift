@@ -1,29 +1,24 @@
-//
-//  NobEczModel.swift
-//  NobetciEczaneApp
-//
-//  Created by Tülay MAYUNCUR on 3.11.2023.
-//
-
 import Foundation
 
-class NobEczModel: Codable {
+struct NobEczModel: Codable {
     let success: Bool
     let result: [NobEczData]
 }
 
-class NobEczData: Codable {
-    let name: String?
-    let dist: String?
-    let address: String?
-    let phone: String?
-    let loc: String?
-
-    init(name: String, dist: String, address: String, phone: String, loc: String) {
-        self.name = name
-        self.dist = dist
-        self.address = address
-        self.phone = phone
-        self.loc = loc
+struct NobEczData: Codable {
+    let name: String
+    let dist: String
+    let address: String
+    let phone: String
+    let loc: String
+    
+    var coordinate: (latitude: Double, longitude: Double)? {
+        let components = loc.split(separator: ",")
+        if components.count == 2,
+           let lat = Double(components[0]),
+           let lon = Double(components[1]) {
+            return (lat, lon)
+        }
+        return nil
     }
 }

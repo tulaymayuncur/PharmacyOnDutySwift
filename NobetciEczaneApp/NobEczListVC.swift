@@ -1,3 +1,4 @@
+
 import UIKit
 
 class NobEczListVC: UIViewController {
@@ -25,18 +26,27 @@ class NobEczListVC: UIViewController {
         if let url = URL(string: apiUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.setValue("apikey 0NhzdC4EUi8CGIofVoldl7:0DzHv36yQ9Gjz5KKMIzyaz", forHTTPHeaderField: "authorization")
+            request.setValue("apikey 0ycW9lVdbNIKOXggSAPEt0:4J4nv0tYhMHdjnS0VObHnV", forHTTPHeaderField: "authorization")
             request.setValue("application/json", forHTTPHeaderField: "content-type")
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if error != nil || data == nil {
-                    print("Hata")
+                if let error = error {
+                    print("Hata: \(error.localizedDescription)")
                     return
                 }
+                
+                guard let data = data else {
+                    print("Veri yok")
+                    return
+                }
+                
                 do {
-                    let gelenNobEcz = try JSONDecoder().decode(NobEczModel.self, from: data!)
+                    // Gelen veriyi yazdırarak kontrol edin
+                    if let jsonString = String(data: data, encoding: .utf8) {
+                        print("Gelen veri: \(jsonString)")
+                    }
                     
-                    // JSON verisi boşsa, gelenNobEcz.result listesinin boş olup olmadığını kontrol edin
+                    let gelenNobEcz = try JSONDecoder().decode(NobEczModel.self, from: data)
                     let gelenNobEczList = gelenNobEcz.result
                     self.nobEczListe = gelenNobEczList
                     
@@ -51,10 +61,20 @@ class NobEczListVC: UIViewController {
             print("Geçersiz URL")
         }
     }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMap" {
+            if let mapVC = segue.destination as? NobEczMapsVC {
+                mapVC.nobEczListe = self.nobEczListe
+                mapVC.secilenIlce = self.secilenIlce
+            }
+        }
+    }
 }
 
 extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -64,27 +84,32 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nobEczCell", for: indexPath) as! NobEczTableViewCell
-        
-        if nobEczListe.isEmpty {
-            cell.eczAdiLabel.text = "Seçilen il ve ilçede açık nöbetçi eczane yok"
-            cell.EczSemtLabel.text = ""
-            cell.EczAdresLabel.text = ""
-            cell.EczUzaklikLabel.text = ""
-        } else {
-            let nobEcz = nobEczListe[indexPath.row]
-            cell.eczAdiLabel.text = nobEcz.name ?? "N/A"
-            cell.EczSemtLabel.text = nobEcz.dist ?? "N/A"
-            cell.EczAdresLabel.text = nobEcz.address ?? "N/A"
-            cell.EczUzaklikLabel.text = nobEcz.loc ?? "N/A"
-        }
-        
-        return cell
-    }
+          let cell = tableView.dequeueReusableCell(withIdentifier: "nobEczCell", for: indexPath) as! NobEczTableViewCell
+          
+          if nobEczListe.isEmpty {
+              cell.eczAdiLabel.text = "Seçilen il ve ilçede açık nöbetçi eczane yok"
+              cell.EczSemtLabel.text = ""
+              cell.EczAdresLabel.text = ""
+              cell.EczUzaklikLabel.text = ""
+          } else {
+              let nobEcz = nobEczListe[indexPath.row]
+              cell.eczAdiLabel.text = nobEcz.name
+              cell.EczSemtLabel.text = nobEcz.dist ?? "N/A"
+              cell.EczAdresLabel.text = nobEcz.address ?? "N/A"
+              cell.EczUzaklikLabel.text = nobEcz.loc ?? "N/A"
+          }
+          
+          return cell
+      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !nobEczListe.isEmpty {
-            print("Tıklandı \(indexPath.row)")
+            if !nobEczListe.isEmpty {
+                print("Tıklandı \(indexPath.row)")
+            }
         }
-    }
+
+
 }
+
+
+

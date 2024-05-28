@@ -1,15 +1,7 @@
-//
-//  NobEczTableViewCell.swift
-//  NobetciEczaneApp
-//
-//  Created by Tülay MAYUNCUR on 3.11.2023.
-//
-
 import UIKit
 
 class NobEczTableViewCell: UITableViewCell {
     @IBOutlet weak var eczAdiLabel: UILabel!
-    
     @IBOutlet weak var EczUzaklikLabel: UILabel!
     @IBOutlet weak var EczSemtLabel: UILabel!
     @IBOutlet weak var EczAdresLabel: UILabel!
@@ -21,8 +13,6 @@ class NobEczTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-
 }

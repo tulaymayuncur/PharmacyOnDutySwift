@@ -1,10 +1,3 @@
-//
-//  IlIlceModel.swift
-//  NobetciEczaneApp
-//
-//  Created by Tülay MAYUNCUR on 4.11.2023.
-//
-
 import Foundation
 
 struct IlModel: Codable {
@@ -14,7 +7,6 @@ struct IlModel: Codable {
 struct IlData: Codable {
     let il_adi: String
     let ilceler: [Ilce]
-
 }
 
 struct Ilce: Codable {
