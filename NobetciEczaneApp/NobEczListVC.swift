@@ -25,7 +25,7 @@ class NobEczListVC: UIViewController {
         if let url = URL(string: apiUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.setValue("apikey 0ycW9lVdbNIKOXggSAPEt0:4J4nv0tYhMHdjnS0VObHnV", forHTTPHeaderField: "authorization")
+            request.setValue("apikey 4RJ1iOmE3iMkZr9OVTm2cK:6xfEGNAUyQdAOevFBGDBGj", forHTTPHeaderField: "authorization")
             request.setValue("application/json", forHTTPHeaderField: "content-type")
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
