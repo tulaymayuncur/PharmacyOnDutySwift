@@ -3,6 +3,8 @@ import UIKit
 class NobEczListVC: UIViewController {
     
     @IBOutlet weak var nobEczTableView: UITableView!
+    @IBOutlet weak var selectedLocationLabel: UIButton!
+    @IBOutlet weak var dateLabel: UIButton!
     
     var nobEczListe = [NobEczData]()
     var secilenIl: String = ""
@@ -13,7 +15,18 @@ class NobEczListVC: UIViewController {
         nobEczTableView.delegate = self
         nobEczTableView.dataSource = self
         fetchNobEczData()
+        
+        selectedLocationLabel.setTitle("\(secilenIl) Nöbetçi Eczaneler", for: .normal)
+
+        // Tarihi al ve butona ata
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy" // Tarih formatı isteğe bağlı olarak değiştirilebilir
+        let currentDate = Date()
+        let dateString = dateFormatter.string(from: currentDate)
+        
+        dateLabel.setTitle("\(dateString) Tarihi için Nöbetçi Eczaneler", for: .normal)
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,7 +74,6 @@ class NobEczListVC: UIViewController {
         }
     }
 
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
             if let mapVC = segue.destination as? NobEczMapsVC {
@@ -73,7 +85,7 @@ class NobEczListVC: UIViewController {
 }
 
 extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -83,31 +95,29 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          let cell = tableView.dequeueReusableCell(withIdentifier: "nobEczCell", for: indexPath) as! NobEczTableViewCell
-          
-          if nobEczListe.isEmpty {
-              cell.eczAdiLabel.text = "Seçilen il ve ilçede açık nöbetçi eczane yok"
-              cell.EczSemtLabel.text = ""
-              cell.EczAdresLabel.text = ""
-              cell.EczUzaklikLabel.text = ""
-              cell.EczTelLabel.text = "" 
-          } else {
-              let nobEcz = nobEczListe[indexPath.row]
-              cell.eczAdiLabel.text = nobEcz.name
-              cell.EczTelLabel.text = "Tel: \(nobEcz.phone)"
-              cell.EczSemtLabel.text = nobEcz.dist
-              cell.EczAdresLabel.text = nobEcz.address
-              cell.EczUzaklikLabel.text = nobEcz.loc
-          }
-          
-          return cell
-      }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nobEczCell", for: indexPath) as! NobEczTableViewCell
+        
+        if nobEczListe.isEmpty {
+            cell.eczAdiLabel.text = "Seçilen il ve ilçede açık nöbetçi eczane yok"
+            cell.EczSemtLabel.text = ""
+            cell.EczAdresLabel.text = ""
+            cell.EczUzaklikLabel.text = ""
+            cell.EczTelLabel.text = ""
+        } else {
+            let nobEcz = nobEczListe[indexPath.row]
+            cell.eczAdiLabel.text = nobEcz.name
+            cell.EczTelLabel.text = "Tel: \(nobEcz.phone)"
+            cell.EczSemtLabel.text = nobEcz.dist
+            cell.EczAdresLabel.text = nobEcz.address
+            cell.EczUzaklikLabel.text = nobEcz.loc
+        }
+        
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            if !nobEczListe.isEmpty {
-                print("Tıklandı \(indexPath.row)")
-            }
+        if !nobEczListe.isEmpty {
+            print("Tıklandı \(indexPath.row)")
         }
-
-
+    }
 }
