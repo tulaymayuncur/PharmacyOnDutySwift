@@ -71,7 +71,14 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Giriş" id="apQ-TO-wLA"/>
+                    <navigationItem key="navigationItem" title="Giriş" id="apQ-TO-wLA">
+                        <barButtonItem key="rightBarButtonItem" title="ACİL 112" style="done" id="omc-L6-Cwr">
+                            <color key="tintColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <action selector="acil112button:" destination="BYZ-38-t0r" id="YXZ-js-sL2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ilceSecmeTextField" destination="Ay3-ao-5zp" id="vaF-1w-5H9"/>

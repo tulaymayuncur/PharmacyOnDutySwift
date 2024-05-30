@@ -54,12 +54,14 @@ extension NobEczMapsVC: MKMapViewDelegate {
                 annotationView?.canShowCallout = true
                 
                 let callButton = UIButton(type: .contactAdd)
-                callButton.tag = 1
-                annotationView?.leftCalloutAccessoryView = callButton
-                
-                let directionsButton = UIButton(type: .detailDisclosure)
-                directionsButton.tag = 2
-                annotationView?.rightCalloutAccessoryView = directionsButton
+                                callButton.tag = 1
+                                callButton.setImage(UIImage(systemName: "phone"), for: .normal) // Telefon simgesi
+                                annotationView?.leftCalloutAccessoryView = callButton
+                                
+                                let directionsButton = UIButton(type: .detailDisclosure)
+                                directionsButton.tag = 2
+                                directionsButton.setImage(UIImage(systemName: "location"), for: .normal) // Konum simgesi
+                                annotationView?.rightCalloutAccessoryView = directionsButton
             } else {
                 annotationView?.annotation = annotation
             }

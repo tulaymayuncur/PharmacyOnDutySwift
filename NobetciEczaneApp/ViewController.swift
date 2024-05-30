@@ -69,6 +69,15 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "ilIlce", sender: nil)
     }
     
+    @IBAction func acil112button(_ sender: Any) {
+        if let url = URL(string: "tel://112"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            // 112 arama işlemi desteklenmiyorsa veya URL geçersizse burada bir hata işleme mekanizması ekleyebilirsiniz.
+            print("112 araması desteklenmiyor veya URL geçersiz.")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ilIlce" {
             if let gidilecekVC = segue.destination as? NobEczListVC {
