@@ -42,6 +42,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		42D38B222C07FE5E000E350C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		423BD7EE2AD6A97300014EAE /* NobetciEczaneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NobetciEczaneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		423BD7F12AD6A97300014EAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +63,6 @@
 		423BD7F82AD6A97300014EAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		423BD7FA2AD6A97400014EAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		423BD7FD2AD6A97400014EAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		423BD7FF2AD6A97400014EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		423BD8042AD6A97400014EAE /* NobetciEczaneAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NobetciEczaneAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		423BD8082AD6A97400014EAE /* NobetciEczaneAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NobetciEczaneAppTests.swift; sourceTree = "<group>"; };
 		423BD80E2AD6A97400014EAE /* NobetciEczaneAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NobetciEczaneAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +132,6 @@
 				423BD7F72AD6A97300014EAE /* Main.storyboard */,
 				423BD7FA2AD6A97400014EAE /* Assets.xcassets */,
 				423BD7FC2AD6A97400014EAE /* LaunchScreen.storyboard */,
-				423BD7FF2AD6A97400014EAE /* Info.plist */,
 				426037AF2AF538D000BE86C3 /* NobEczListVC.swift */,
 				426037B12AF538F000BE86C3 /* NobEczMapsVC.swift */,
 				426037B32AF53B1900BE86C3 /* NobEczTableViewCell.swift */,
@@ -160,6 +171,7 @@
 				423BD7EA2AD6A97300014EAE /* Sources */,
 				423BD7EB2AD6A97300014EAE /* Frameworks */,
 				423BD7EC2AD6A97300014EAE /* Resources */,
+				42D38B222C07FE5E000E350C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -213,7 +225,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					423BD7ED2AD6A97300014EAE = {
@@ -472,8 +484,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2M38HVWA26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NobetciEczaneApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Konumunuzu eczanelerin yerini göstermek için kullanacağız.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -499,8 +513,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2M38HVWA26;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NobetciEczaneApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Konumunuzu eczanelerin yerini göstermek için kullanacağız.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

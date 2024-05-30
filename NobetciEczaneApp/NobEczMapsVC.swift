@@ -1,15 +1,21 @@
 import UIKit
 import MapKit
+import CoreLocation
 
 class NobEczMapsVC: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     var nobEczListe: [NobEczData] = []
     var secilenIlce: String = ""
+    
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         addAnnotations()
     }
     
@@ -26,7 +32,7 @@ class NobEczMapsVC: UIViewController {
             }
         }
         
-        mapView.showAnnotations(annotations, animated: true)
+        mapView.addAnnotations(annotations)
         
         if let firstEczane = nobEczListe.first, let firstCoordinate = firstEczane.coordinate {
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: firstCoordinate.latitude, longitude: firstCoordinate.longitude), latitudinalMeters: 5000, longitudinalMeters: 5000)
@@ -37,17 +43,53 @@ class NobEczMapsVC: UIViewController {
 
 extension NobEczMapsVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "PharmacyAnnotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        if annotation.title == "Siz Buradasınız" {
+            let identifier = "UserLocation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
+            
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.pinTintColor = UIColor.blue // Kullanıcı konumu için özel renk
+                annotationView?.canShowCallout = true
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
         } else {
-            annotationView?.annotation = annotation
+            let identifier = "PharmacyAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
         }
+    }
+}
+
+extension NobEczMapsVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let userLocation = locations.last else { return }
         
-        return annotationView
+        let userAnnotation = MKPointAnnotation()
+        userAnnotation.title = "Siz Buradasınız"
+        userAnnotation.coordinate = userLocation.coordinate
+        mapView.addAnnotation(userAnnotation)
+        
+        let region = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        mapView.setRegion(region, animated: true)
+        
+        locationManager.stopUpdatingLocation()  // Konum güncellemelerini durdurur
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Konum alınamadı: \(error.localizedDescription)")
     }
 }

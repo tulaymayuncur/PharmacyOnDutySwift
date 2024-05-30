@@ -22,3 +22,4 @@ struct NobEczData: Codable {
         return nil
     }
 }
+

@@ -5,6 +5,11 @@ class NobEczTableViewCell: UITableViewCell {
     @IBOutlet weak var EczUzaklikLabel: UILabel!
     @IBOutlet weak var EczSemtLabel: UILabel!
     @IBOutlet weak var EczAdresLabel: UILabel!
+    @IBOutlet weak var EczTelLabel: UILabel!
+    
+    @IBOutlet weak var araButton: UIButton!
+    @IBOutlet weak var yolTarifiButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

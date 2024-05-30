@@ -1,4 +1,3 @@
-
 import UIKit
 
 class NobEczListVC: UIViewController {
@@ -91,12 +90,14 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
               cell.EczSemtLabel.text = ""
               cell.EczAdresLabel.text = ""
               cell.EczUzaklikLabel.text = ""
+              cell.EczTelLabel.text = "" 
           } else {
               let nobEcz = nobEczListe[indexPath.row]
               cell.eczAdiLabel.text = nobEcz.name
-              cell.EczSemtLabel.text = nobEcz.dist ?? "N/A"
-              cell.EczAdresLabel.text = nobEcz.address ?? "N/A"
-              cell.EczUzaklikLabel.text = nobEcz.loc ?? "N/A"
+              cell.EczTelLabel.text = "Tel: \(nobEcz.phone)"
+              cell.EczSemtLabel.text = nobEcz.dist
+              cell.EczAdresLabel.text = nobEcz.address
+              cell.EczUzaklikLabel.text = nobEcz.loc
           }
           
           return cell
@@ -110,6 +111,3 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
 
 
 }
-
-
-
