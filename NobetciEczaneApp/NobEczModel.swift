@@ -12,6 +12,8 @@ struct NobEczData: Codable {
     let phone: String
     let loc: String
     
+    var distance: Double? // Mesafe özelliği eklendi
+    
     var coordinate: (latitude: Double, longitude: Double)? {
         let components = loc.split(separator: ",")
         if components.count == 2,
@@ -22,4 +24,3 @@ struct NobEczData: Codable {
         return nil
     }
 }
-

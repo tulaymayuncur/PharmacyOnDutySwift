@@ -1,6 +1,7 @@
 import UIKit
+import CoreLocation
 
-class NobEczListVC: UIViewController {
+class NobEczListVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var nobEczTableView: UITableView!
     @IBOutlet weak var selectedLocationLabel: UIButton!
@@ -10,10 +11,19 @@ class NobEczListVC: UIViewController {
     var secilenIl: String = ""
     var secilenIlce: String = ""
     
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         nobEczTableView.delegate = self
         nobEczTableView.dataSource = self
+        
+        // Konum yöneticisini yapılandır
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
         fetchNobEczData()
         
         selectedLocationLabel.setTitle("\(secilenIl) Nöbetçi Eczaneler", for: .normal)
@@ -26,13 +36,19 @@ class NobEczListVC: UIViewController {
         
         dateLabel.setTitle("\(dateString) Tarihi için Nöbetçi Eczaneler", for: .normal)
     }
-
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchNobEczData()
+    // Konum güncellemeleri alındığında çağrılır
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            currentLocation = location
+            nobEczTableView.reloadData() // Konum güncellendiğinde tabloyu yeniden yükleyin
+        }
     }
-   
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Konum alınamadı: \(error.localizedDescription)")
+    }
+    
     func fetchNobEczData() {
         let apiUrl = "https://api.collectapi.com/health/dutyPharmacy?ilce=\(secilenIlce)&il=\(secilenIl)"
         if let url = URL(string: apiUrl) {
@@ -53,13 +69,29 @@ class NobEczListVC: UIViewController {
                 }
                 
                 do {
-                    // Gelen veriyi yazdırarak kontrol edin
-                    if let jsonString = String(data: data, encoding: .utf8) {
-                        print("Gelen veri: \(jsonString)")
+                    let gelenNobEcz = try JSONDecoder().decode(NobEczModel.self, from: data)
+                    var gelenNobEczList = gelenNobEcz.result
+                    
+                    if let currentLocation = self.currentLocation {
+                        for i in 0..<gelenNobEczList.count {
+                            let nobEcz = gelenNobEczList[i]
+                            let eczaneLocation = nobEcz.loc
+                            let eczaneCoordinates = eczaneLocation.split(separator: ",")
+                            if eczaneCoordinates.count == 2,
+                               let latitude = Double(eczaneCoordinates[0].trimmingCharacters(in: .whitespaces)),
+                               let longitude = Double(eczaneCoordinates[1].trimmingCharacters(in: .whitespaces)) {
+                                
+                                let eczaneLocation = CLLocation(latitude: latitude, longitude: longitude)
+                                let distance = currentLocation.distance(from: eczaneLocation) / 1000 // Mesafe kilometre cinsinden
+                                gelenNobEczList[i].distance = distance
+                            } else {
+                                gelenNobEczList[i].distance = nil
+                            }
+                        }
+                        // Mesafeye göre sıralama
+                        gelenNobEczList.sort { ($0.distance ?? Double.greatestFiniteMagnitude) < ($1.distance ?? Double.greatestFiniteMagnitude) }
                     }
                     
-                    let gelenNobEcz = try JSONDecoder().decode(NobEczModel.self, from: data)
-                    let gelenNobEczList = gelenNobEcz.result
                     self.nobEczListe = gelenNobEczList
                     
                     DispatchQueue.main.async {
@@ -109,7 +141,12 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
             cell.EczTelLabel.text = "Tel: \(nobEcz.phone)"
             cell.EczSemtLabel.text = nobEcz.dist
             cell.EczAdresLabel.text = nobEcz.address
-            cell.EczUzaklikLabel.text = nobEcz.loc
+            
+            if let distance = nobEcz.distance {
+                cell.EczUzaklikLabel.text = String(format: "Uzaklık: %.2f km", distance)
+            } else {
+                cell.EczUzaklikLabel.text = "Uzaklık hesaplanamadı"
+            }
         }
         
         return cell

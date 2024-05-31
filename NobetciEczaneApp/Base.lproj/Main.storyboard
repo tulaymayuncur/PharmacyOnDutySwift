@@ -197,7 +197,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="54"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="31/05/2024 Tarihi İçin Nöbetçi Eczaneler">
-                                    <color key="baseForegroundColor" systemColor="tintColor"/>
+                                    <color key="baseForegroundColor" red="0.5491168407" green="0.132304544" blue="0.1121286859" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                             </button>
                         </subviews>
@@ -232,9 +232,10 @@
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Lgl-yM-wjr">
                             <rect key="frame" x="56.666666666666657" y="5" width="276" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="İstanbul Nöbetçi Eczaneler">
-                                <color key="titleColor" red="0.5491168407" green="0.132304544" blue="0.1121286859" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="titleColor" systemColor="labelColor"/>
                             </state>
                         </button>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="map" catalog="system" id="C6G-na-nWA">
@@ -310,14 +311,14 @@
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
