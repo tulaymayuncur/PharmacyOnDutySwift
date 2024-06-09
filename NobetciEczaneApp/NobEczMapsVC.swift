@@ -77,7 +77,7 @@ extension NobEczMapsVC: MKMapViewDelegate {
             // Arama butonu tıklandı
             if let phone = nobEczListe.first(where: { $0.name == annotation.title })?.phone {
                 let cleanedPhone = phone.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "")
-                if let phoneUrl = URL(string: "tel://\(cleanedPhone)") {
+                if let phoneUrl = URL(string: "tel: //\("0" + cleanedPhone)") {
                     if UIApplication.shared.canOpenURL(phoneUrl) {
                         UIApplication.shared.open(phoneUrl, options: [:], completionHandler: nil)
                     } else {

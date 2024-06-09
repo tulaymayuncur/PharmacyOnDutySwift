@@ -156,7 +156,7 @@ extension NobEczListVC: UITableViewDelegate, UITableViewDataSource {
         if !nobEczListe.isEmpty {
             print("Tıklandı \(indexPath.row)")
             let selectedPharmacy = nobEczListe[indexPath.row]
-            if let phoneURL = URL(string: "tel://\(selectedPharmacy.phone)") {
+            if let phoneURL = URL(string: "tel://\("0" + selectedPharmacy.phone)") {
                 UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
             } else {
                 print("Geçersiz telefon numarası")
