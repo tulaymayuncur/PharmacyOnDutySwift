@@ -54,7 +54,7 @@ class NobEczListVC: UIViewController, CLLocationManagerDelegate {
         if let url = URL(string: apiUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.setValue("apikey 4RJ1iOmE3iMkZr9OVTm2cK:6xfEGNAUyQdAOevFBGDBGj", forHTTPHeaderField: "authorization")
+            request.setValue("apikey 2Vxb8mLUlyGQfD8iBpAtgZ:61G7ZERqPZw4V2PhOggzjl", forHTTPHeaderField: "authorization")
             request.setValue("application/json", forHTTPHeaderField: "content-type")
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
